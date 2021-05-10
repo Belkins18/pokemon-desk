@@ -33,5 +33,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.public
         })
-    ]
+    ],
+    devServer: {
+        port: 3000,
+        open: true,
+        hot: true
+    },
+    devtool: "source-map"
 }
