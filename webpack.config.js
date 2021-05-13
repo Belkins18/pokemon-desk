@@ -7,7 +7,7 @@ const NODE_ENV = process.env.NODE_ENV;
 const path = {
     src: resolve(__dirname, "src"),
     dist: resolve(__dirname, "dist"),
-    entry: resolve(__dirname, "src/index.js"),
+    entry: resolve(__dirname, "src/index.ts"),
     public: resolve(__dirname, "public/index.html")
 }
 
@@ -25,19 +25,25 @@ module.exports = {
         rules: [
             {
                 test: /\.[tj]sx?$/,
+                exclude: /node_modules/,
                 use: ["ts-loader"]
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
             },
             {
                 test: /\.(s*)css$/,
                 use: [
                     "style-loader",
+                    'css-modules-typescript-loader?modules',
                     {
                         loader: "css-loader",
                         options: {
                             modules: {
                                 mode: "local",
                                 localIdentName: "[name]__[local]__[hash:base64:5]",
-                                auto: /\.modules\.\w+$/i
+                                auto: /\.module\.\w+$/i
                             }
                         }
                     },
