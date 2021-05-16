@@ -56,5 +56,8 @@
       "pretty-quick --staged",
       "eslint ./src"
     ]
+  },
+  "engines": {
+    "node": "12.18.1"
   }
 }
