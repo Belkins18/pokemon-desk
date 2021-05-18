@@ -12,18 +12,19 @@ const Parallax = () => {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
-  const handleMouseMove = (event: MouseEvent) => {
-    console.log('X: ', event.screenX);
-    console.log('Y: ', event.screenY);
-    setX(event.screenX);
-    setY(event.screenY);
-  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      console.log('X: ', event.screenX);
+      console.log('Y: ', event.screenY);
+      setX(event.screenX);
+      setY(event.screenY);
+    };
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [x, y]);
 
   return (
     <div className={s.root}>

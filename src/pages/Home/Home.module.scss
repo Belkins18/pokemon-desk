@@ -10,13 +10,21 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.contentText {
-  border: 1px solid black;
-}
-
-.contentParallax {
-  border: 1px solid black;
+.homePageContent {
+  padding-top: 67px;
+  &Text {
+    max-width: 515px;
+    padding-top: 60px;
+    * + h3 {
+      margin-top: 32px;
+    }
+    * + button {
+      margin-top: 48px;
+    }
+  }
+  &Parallax {
+    border: none;
+  }
 }
