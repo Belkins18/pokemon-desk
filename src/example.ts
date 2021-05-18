@@ -72,7 +72,6 @@ const tsArr1: MyArray<number> = [1, 2, 3, 4];
 const tsArr3: Array<number | string> = [1, 2, 3, 4];
 
 tsArr1.map((i) => `${i} + 1`);
-tsArr1.reduce((a, b) => a + b);
 tsArr3.reduce((a, b) => {
   return `${a} + b)`;
 });
@@ -112,5 +111,5 @@ interface MyArray<T> {
   [n: number]: T;
 
   map<U>(param: (i: T) => U): Array<U>;
-  reduce<U>(param: (a: T, b: T) => U): U;
+  reduce<U>(fn: (acc: U, el: T) => U, init: U): U;
 }
