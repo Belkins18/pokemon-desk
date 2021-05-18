@@ -42,6 +42,10 @@
   font-size: 25px;
   line-height: 29px;
   color: $dark;
+
+  &.activeLink {
+    color: red;
+  }
   &:after {
     content: '';
     position: absolute;

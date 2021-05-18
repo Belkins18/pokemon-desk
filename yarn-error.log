@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add -D file-loader
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add -D @types/hookrouter
 
 PATH: 
-  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\belki\bin;D:\code\ReactPro Marathon 10.05\pokemon-desk\node_modules\.bin;C:\WINDOWS\system32\WBEM;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Users\belki\AppData\Roaming\nvm;C:\Program Files (x86)\Yarn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Users\belki\.windows-build-tools\python27;C:\Users\belki\AppData\Roaming\nvm\v12.13.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Windows\system32\node_modules\windows-build-tools\node_modules\.bin;C:\Windows\system32\node_modules\.bin;C:\Users\belki\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\belki\AppData\Local\Programs\Python\Python38-32;C:\Users\belki\AppData\Local\Microsoft\WindowsApps;C:\Users\belki\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dmitriy\AppData\Roaming\nvm;C:\Users\belki\AppData\Local\Yarn\bin;C:\Users\belki\.dotnet\tools;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Users\belki\.windows-build-tools\python27;C:\Users\belki\AppData\Roaming\nvm\v12.13.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Windows\system32\node_modules\windows-build-tools\node_modules\.bin;C:\Windows\system32\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Users\belki\AppData\Roaming\nvm;C:\Program Files (x86)\Yarn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\belki\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\belki\AppData\Local\Programs\Python\Python38-32;C:\Users\belki\AppData\Local\Microsoft\WindowsApps;C:\Users\belki\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dmitriy\AppData\Roaming\nvm;C:\Users\belki\AppData\Local\Yarn\bin;C:\Users\belki\.dotnet\tools;C:\Users\belki\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\WebStorm 2020.3.3\bin
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\belki\bin;C:\WINDOWS\system32\WBEM;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Users\belki\AppData\Roaming\nvm;C:\Program Files (x86)\Yarn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Users\belki\.windows-build-tools\python27;C:\Users\belki\AppData\Roaming\nvm\v12.13.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Windows\system32\node_modules\windows-build-tools\node_modules\.bin;C:\Windows\system32\node_modules\.bin;C:\Users\belki\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\belki\AppData\Local\Programs\Python\Python38-32;C:\Users\belki\AppData\Local\Microsoft\WindowsApps;C:\Users\belki\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dmitriy\AppData\Roaming\nvm;C:\Users\belki\AppData\Local\Yarn\bin;C:\Users\belki\.dotnet\tools;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\ProgramData\chocolatey\bin;C:\Users\belki\.windows-build-tools\python27;C:\Users\belki\AppData\Roaming\nvm\v12.13.0\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Windows\system32\node_modules\windows-build-tools\node_modules\.bin;C:\Windows\system32\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Users\belki\AppData\Roaming\nvm;C:\Program Files (x86)\Yarn\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\nodejs;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit;C:\Users\belki\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\belki\AppData\Local\Programs\Python\Python38-32;C:\Users\belki\AppData\Local\Microsoft\WindowsApps;C:\Users\belki\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Dmitriy\AppData\Roaming\nvm;C:\Users\belki\AppData\Local\Yarn\bin;C:\Users\belki\.dotnet\tools;C:\Users\belki\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\WebStorm 2020.3.3\bin
 
 Yarn version: 
   1.22.4
@@ -14,7 +14,8 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'D:\code\ReactPro Marathon 10.05\pokemon-desk\node_modules\.bin\webpack-dev-server'
+  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:66:26)
 
 npm manifest: 
   {
@@ -30,6 +31,7 @@ npm manifest:
     "license": "MIT",
     "dependencies": {
       "classnames": "^2.3.1",
+      "hookrouter": "^1.2.5",
       "react": "^17.0.2",
       "react-dom": "^17.0.2"
     },
@@ -52,6 +54,7 @@ npm manifest:
       "eslint-plugin-prettier": "3.1.4",
       "eslint-plugin-react": "7.21.5",
       "eslint-plugin-react-hooks": "4.2.0",
+      "file-loader": "^6.2.0",
       "html-webpack-plugin": "4.5.0",
       "husky": "4.3.0",
       "lint-staged": "10.5.1",
@@ -3714,6 +3717,14 @@ Lockfile:
     dependencies:
       flat-cache "^2.0.1"
   
+  file-loader@^6.2.0:
+    version "6.2.0"
+    resolved "https://registry.yarnpkg.com/file-loader/-/file-loader-6.2.0.tgz#baef7cf8e1840df325e4390b4484879480eebe4d"
+    integrity sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==
+    dependencies:
+      loader-utils "^2.0.0"
+      schema-utils "^3.0.0"
+  
   file-uri-to-path@1.0.0:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
@@ -4252,6 +4263,11 @@ Lockfile:
     integrity sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==
     dependencies:
       parse-passwd "^1.0.0"
+  
+  hookrouter@^1.2.5:
+    version "1.2.5"
+    resolved "https://registry.yarnpkg.com/hookrouter/-/hookrouter-1.2.5.tgz#ea1b88fd9f6a48816b17145bfb2b38dfc93df21e"
+    integrity sha512-9OLve2u+JZDCOgPnxJu5dvg/mU1w2ZWWlSOFxCKcGQKRSH1MXI8tMwEgm64mQfjZLET/7yFRTUrZ4hUYoK0ezw==
   
   hosted-git-info@^2.1.4:
     version "2.8.9"

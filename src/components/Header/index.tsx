@@ -1,4 +1,6 @@
 import React from 'react';
+import cn from 'classnames';
+import { A } from 'hookrouter';
 // svg
 import { ReactComponent as PokemonLogoSvg } from './assets/Logo.svg';
 // styles
@@ -13,12 +15,12 @@ const MENU: Array<IMenu> = [
   {
     id: 1,
     value: 'Home',
-    link: '#',
+    link: '/',
   },
   {
     id: 2,
     value: 'Pokédex',
-    link: '#',
+    link: '/pokedex',
   },
   {
     id: 3,
@@ -43,9 +45,14 @@ const Header = () => {
         </a>
         <nav className={s.menuWrap}>
           {MENU.map(({ link, value, id }) => (
-            <a key={id} href={link} className={s.menuLink}>
+            <A
+              key={id}
+              href={link}
+              className={cn(s.menuLink, {
+                [s.activeLink]: id === 1,
+              })}>
               {value}
-            </a>
+            </A>
           ))}
         </nav>
       </div>
