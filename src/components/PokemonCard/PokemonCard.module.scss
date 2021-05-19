@@ -76,6 +76,8 @@
   align-items: center;
 
   img {
+    object-fit: contain;
+    height: 100%;
     width: 80%;
   }
 }

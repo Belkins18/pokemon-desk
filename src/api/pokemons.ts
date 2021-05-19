@@ -1,6 +1,5 @@
-let POKEMONS;
-// eslint-disable-next-line no-undef,@typescript-eslint/no-unused-vars
-export default POKEMONS = [
+// eslint-disable-next-line import/prefer-default-export
+export const POKEMONS = [
   {
     name_clean: 'bulbasaur',
     abilities: ['overgrow', 'chlorophyll'],

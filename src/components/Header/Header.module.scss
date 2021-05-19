@@ -44,7 +44,10 @@
   color: $dark;
 
   &.activeLink {
-    color: red;
+    &:after {
+      width: 100%;
+      opacity: 1;
+    }
   }
   &:after {
     content: '';
