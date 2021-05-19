@@ -4,29 +4,36 @@ import EmptyPage from './pages/Empty';
 
 interface IGeneralMenu {
   title: string;
-  link: string;
+  link: LinkTo;
   component: () => JSX.Element;
+}
+// eslint-disable-next-line no-shadow
+export enum LinkTo {
+  HOME = '/',
+  POKEDEX = '/pokedex',
+  LEGENDARES = '/legendaries',
+  DOCUMENTATION = '/documentation',
 }
 
 export const GENERAL_MENU: IGeneralMenu[] = [
   {
     title: 'Home',
-    link: '/',
+    link: LinkTo.HOME,
     component: () => <HomePage />,
   },
   {
     title: 'Pokédex',
-    link: '/pokedex',
+    link: LinkTo.POKEDEX,
     component: () => <EmptyPage title="Pokédex" />,
   },
   {
     title: 'Legendaries',
-    link: '/legendaries',
+    link: LinkTo.LEGENDARES,
     component: () => <EmptyPage title="Legendaries" />,
   },
   {
     title: 'Documentation',
-    link: '/documentation',
+    link: LinkTo.DOCUMENTATION,
     component: () => <EmptyPage title="Documentation" />,
   },
 ];

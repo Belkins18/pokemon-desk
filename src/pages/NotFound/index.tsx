@@ -2,6 +2,7 @@ import React from 'react';
 import { navigate } from 'hookrouter';
 import s from './NotFound.module.scss';
 import Button, { BtnBackgrounds } from '../../components/Button';
+import { LinkTo } from '../../routes';
 
 import TeamRocketTrio from './assets/Team_Rocket_trio.png';
 
@@ -15,7 +16,7 @@ const NotFound = () => {
           <div className={s.subTitle}>
             <span>The rocket team</span> has won this time.
           </div>
-          <Button classNames={s.button} onClick={() => navigate('/')} background={BtnBackgrounds.Yellow}>
+          <Button classNames={s.button} onClick={() => navigate(LinkTo.HOME)} background={BtnBackgrounds.Yellow}>
             Return
           </Button>
         </div>

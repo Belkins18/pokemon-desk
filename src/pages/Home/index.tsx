@@ -1,6 +1,8 @@
 import React from 'react';
+import { navigate } from 'hookrouter';
 import cn from 'classnames';
 import s from './Home.module.scss';
+import { LinkTo } from '../../routes';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import Button, { BtnBackgrounds } from '../../components/Button';
@@ -18,7 +20,7 @@ const HomePage = () => {
             <b>Find</b> all your favorite <b>Pokemon</b>
           </Heading>
           <Heading type="h3">You can know the type of Pokemon, its strengths, disadvantages and abilities</Heading>
-          <Button onClick={() => console.log('Click')} background={BtnBackgrounds.Green}>
+          <Button onClick={() => navigate(LinkTo.POKEDEX)} background={BtnBackgrounds.Green}>
             See pokemons
           </Button>
         </div>
