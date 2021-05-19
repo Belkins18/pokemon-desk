@@ -1,0 +1,28 @@
+@import 'src/assets/styles/variables';
+
+.root {
+  display: flex;
+}
+
+.wrap {
+  max-width: 1125px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  font-size: 35px;
+  line-height: 41px;
+  letter-spacing: 3px;
+}
+
+.card {
+  &Wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
