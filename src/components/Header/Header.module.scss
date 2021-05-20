@@ -42,6 +42,13 @@
   font-size: 25px;
   line-height: 29px;
   color: $dark;
+
+  &.activeLink {
+    &:after {
+      width: 100%;
+      opacity: 1;
+    }
+  }
   &:after {
     content: '';
     position: absolute;

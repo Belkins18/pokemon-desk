@@ -15,6 +15,7 @@ const Parallax = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleMouseMove = (event: MouseEvent) => {
       console.log('X: ', event.screenX);
       console.log('Y: ', event.screenY);
