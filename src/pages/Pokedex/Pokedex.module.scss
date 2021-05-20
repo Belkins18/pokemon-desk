@@ -1,0 +1,34 @@
+@import 'src/assets/styles/variables';
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1125px;
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 35px;
+  line-height: 41px;
+  letter-spacing: 3px;
+}
+
+.card {
+  &List {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: -5px;
+    margin-right: -5px;
+    list-style: none;
+    padding: 0;
+    &Item {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+}

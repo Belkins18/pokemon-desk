@@ -1,11 +1,13 @@
 import React from 'react';
-import cn from 'classnames';
-import s from './App.module.scss';
+import { useRoutes } from 'hookrouter';
+import routes from './routes';
+import './index.scss';
+import NotFound from './pages/NotFound';
 
 const App = () => {
-  console.log('### Some log:');
+  const match = useRoutes(routes);
 
-  return <div className={cn(s.header)}>This is Component!</div>;
+  return match || <NotFound />;
 };
 
 export default App;

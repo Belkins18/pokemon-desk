@@ -1,0 +1,57 @@
+@import 'src/assets/styles/variables';
+
+.root {
+  background: $danger;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.wrap {
+  position: relative;
+  padding-top: 20px;
+}
+
+.text {
+  font-size: 700px;
+  line-height: 818px;
+  letter-spacing: 4px;
+}
+
+.layer {
+  position: absolute;
+  top: 95px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 56px;
+  z-index: 1;
+
+  img {
+    max-width: 690px;
+    max-height: 623px;
+  }
+  .subTitle {
+    color: $dark;
+    span {
+      color: $white;
+    }
+  }
+
+  .button {
+    width: 231px;
+    height: 66px;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 27px;
+  }
+  * + .button {
+    margin-top: 60px;
+  }
+}

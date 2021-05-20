@@ -1,0 +1,71 @@
+@import 'src/assets/styles/variables';
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 93px;
+  background: $third;
+  box-shadow: 4px 4px 16px rgba(1, 28, 64, 0.2);
+}
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1125px;
+  height: 63px;
+}
+
+.brand {
+  display: inline-flex;
+  &__logo {
+    width: 157px;
+    height: 63px;
+  }
+}
+
+.menuWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 658px;
+  width: 100%;
+}
+
+.menuLink {
+  position: relative;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 29px;
+  color: $dark;
+
+  &.activeLink {
+    &:after {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    height: 2px;
+    width: 0%;
+    border-radius: 6px;
+    opacity: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    transition: opacity, width ease-in-out 0.25s;
+    background: $dark;
+  }
+  &:hover {
+    &:after {
+      width: 100%;
+      opacity: 1;
+    }
+  }
+}
