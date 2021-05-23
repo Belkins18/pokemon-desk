@@ -1,8 +1,11 @@
 import React from 'react';
+import cn from 'classnames';
+// Components
 import Heading from '../Heading';
-
 // @ts-ignore
 import s from './PokemonCard.module.scss';
+// interfaces
+import { IPokemons } from '../../api/pokemons';
 
 // name_clean: 'charmander',
 // abilities: ['blaze', 'solar-power'],
@@ -24,55 +27,40 @@ import s from './PokemonCard.module.scss';
 // order: 5,
 // weight: 85,
 
-interface IPokemonCard {
-  id: number;
-  name: string;
-  stats: {
-    hp: number;
-    attack: number;
-    defense: number;
-    'special-attack': number;
-    'special-defense': number;
-    speed: number;
-  };
-  types: string[];
-  img: string;
-}
+// interface ITypeColors {
+//   [n: string]: string[];
+// }
+// const typeColors: ITypeColors = {
+//   '#A1A1A1': ['stile', 'dark', 'rock'],
+//   '#70A83B': ['grass', 'bug'],
+//   '#A2CFF0': ['ice', 'water'],
+//   '#F76545': ['fire', 'fighting', 'dragon'],
+//   '#76AADB': ['normal', 'gosth'],
+//   '#A974BC': ['poison', 'psychic', 'fairy', 'ghost'],
+//   '#9B897B': ['ground'],
+//   '#F7C545': ['electric'],
+// };
 
-interface ITypeColors {
-  [n: string]: string[];
-}
-const typeColors: ITypeColors = {
-  '#A1A1A1': ['stile', 'dark', 'rock'],
-  '#70A83B': ['grass', 'bug'],
-  '#A2CFF0': ['ice', 'water'],
-  '#F76545': ['fire', 'fighting', 'dragon'],
-  '#76AADB': ['normal', 'gosth'],
-  '#A974BC': ['poison', 'psychic', 'fairy', 'ghost'],
-  '#9B897B': ['ground'],
-  '#F7C545': ['electric'],
-};
+// const getBgColorByPokemonType = (colors: ITypeColors, pokemonType: string[] | string) => {
+//   const keys = Object.keys(colors);
+//   let findType: string[] | string;
 
-const getBgColorByPokemonType = (colors: ITypeColors, pokemonType: string[] | string) => {
-  const keys = Object.keys(colors);
-  let findType: string[] | string;
+//   // eslint-disable-next-line prefer-destructuring
+//   typeof pokemonType === 'string' ? (findType = pokemonType) : (findType = pokemonType[0]);
 
-  // eslint-disable-next-line prefer-destructuring
-  typeof pokemonType === 'string' ? (findType = pokemonType) : (findType = pokemonType[0]);
-
-  const color = keys.find((key) => {
-    const values = colors[key];
-    return values.find((item) => item === findType);
-  });
-  return color?.toString();
-};
+//   const color = keys.find((key) => {
+//     const values = colors[key];
+//     return values.find((item) => item === findType);
+//   });
+//   return color?.toString();
+// };
 
 const normalizeName = (name: string) => {
   const req = /(\w)/;
   return name.replace(req, name[0].toUpperCase());
 };
 
-const PokemonCard: React.FC<IPokemonCard> = ({ id, name, stats, types, img }) => {
+const PokemonCard: React.FC<IPokemons> = ({ id, name, stats, types, img }) => {
   return (
     <div className={s.root} id={id.toString()}>
       <div className={s.infoWrap}>
@@ -91,13 +79,22 @@ const PokemonCard: React.FC<IPokemonCard> = ({ id, name, stats, types, img }) =>
         </div>
         <div className={s.labelWrap}>
           {types.map((label) => (
-            <span key={label} className={s.label} style={{ background: getBgColorByPokemonType(typeColors, label) }}>
+            <span
+              key={label}
+              // @ts-ignore
+              className={cn(s.label, s[label])}
+              // style={{ background: getBgColorByPokemonType(typeColors, label)}}
+            >
               {label}
             </span>
           ))}
         </div>
       </div>
-      <div className={s.pictureWrap} style={{ background: getBgColorByPokemonType(typeColors, types) }}>
+      <div
+        // @ts-ignore
+        className={cn(s.pictureWrap, s[`${types[0]}`])}
+        // style={{ background: getBgColorByPokemonType(typeColors, types) }}
+      >
         <img src={img} alt={name} />
       </div>
     </div>
