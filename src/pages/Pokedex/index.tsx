@@ -1,10 +1,10 @@
 import React from 'react';
 import s from './Pokedex.module.scss';
+// eslint-disable-next-line import/no-unresolved
 import PokemonCard from '../../components/PokemonCard';
 import { POKEMONS } from '../../api/pokemons';
 import Header from '../../components/Header';
 
-console.log(POKEMONS);
 const Pokedex = () => {
   return (
     <div>
