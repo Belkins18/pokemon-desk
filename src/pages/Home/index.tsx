@@ -3,7 +3,6 @@ import { navigate } from 'hookrouter';
 import cn from 'classnames';
 import s from './Home.module.scss';
 import { LinkTo } from '../../routes';
-import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import Button, { BtnBackgrounds } from '../../components/Button';
 import Parallax from '../../components/Parallax';
@@ -13,7 +12,6 @@ import Footer from '../../components/Footer';
 const HomePage = () => {
   return (
     <div className={s.root}>
-      <Header />
       <Layout className={cn(s.contentWrap, s.homePageContent)}>
         <div className={s.homePageContentText}>
           <Heading type="h1">

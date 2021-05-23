@@ -2,14 +2,11 @@ import React from 'react';
 import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
 import { POKEMONS } from '../../api/pokemons';
-import Header from '../../components/Header';
 
 console.log(POKEMONS);
 const Pokedex = () => {
   return (
     <div>
-      <Header />
-
       <div className={s.wrap}>
         <div className={s.title}>
           800 <b>Pokemons</b> for you to choose your favorite
