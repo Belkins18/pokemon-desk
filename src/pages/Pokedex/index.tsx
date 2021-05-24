@@ -5,6 +5,8 @@ import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
 import { IPokemons } from '../../api/pokemons';
 
+import config from '../../config';
+
 interface IData {
   count: number;
   limit: number;
@@ -23,9 +25,10 @@ const usePokemons = (): { isLoading: boolean; isError: boolean; data: IData } =>
 
     const getPokemons = async () => {
       setIsLoading(true);
+      const url = `${config.client.server.protocol}://${config.client.server.host}${config.client.endpoint.getPokemons.url.pathname}`;
 
       try {
-        const responce = await fetch('http://zar.hosthot.ru/api/v1/pokemons');
+        const responce = await fetch(url);
         const result = await responce.json();
 
         setData(result);
