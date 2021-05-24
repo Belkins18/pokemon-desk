@@ -5,30 +5,55 @@ import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
 import { IPokemons } from '../../api/pokemons';
 
-// http://zar.hosthot.ru/api/v1/pokemons
-const Pokedex = () => {
-  const [totalPokemons, setTotalPokemons] = useState(0);
-  const [pokemons, setPokemons] = useState<IPokemons[]>([]);
+interface IData {
+  count: number;
+  limit: number;
+  offset: number;
+  pokemons: IPokemons[];
+  total: number;
+}
+
+const usePokemons = (): { isLoading: boolean; isError: boolean; data: IData } => {
+  const [data, setData] = useState<IData>();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
 
-    fetch('http://zar.hosthot.ru/api/v1/pokemons')
-      .then((responce) => responce.json())
-      .then((data) => {
-        console.log('#### data: ', data);
-        setTotalPokemons(data.total);
-        setPokemons(data.pokemons);
-      })
-      .catch(() => {
+    const getPokemons = async () => {
+      setIsLoading(true);
+
+      try {
+        const responce = await fetch('http://zar.hosthot.ru/api/v1/pokemons');
+        const result = await responce.json();
+
+        setData(result);
+      } catch (error) {
         setIsError(true);
-      })
-      .finally(() => {
+      } finally {
         setIsLoading(false);
-      });
+      }
+    };
+
+    getPokemons();
   }, []);
+
+  console.log('#### data: ', {
+    data,
+    isLoading,
+    isError,
+  });
+  return {
+    // @ts-ignore
+    data,
+    isLoading,
+    isError,
+  };
+};
+
+const Pokedex = () => {
+  const { data, isLoading, isError } = usePokemons();
 
   if (isLoading) {
     return <div>Loading ...</div>;
@@ -42,16 +67,10 @@ const Pokedex = () => {
     <div>
       <div className={s.wrap}>
         <div className={s.title}>
-          {totalPokemons} <b>Pokemons</b> for you to choose your favorite
+          {data.total} <b>Pokemons</b> for you to choose your favorite
         </div>
-        <div>
-          {pokemons.map((item) => (
-            <div>{item.name}</div>
-          ))}
-        </div>
-
         <ul className={s.cardList}>
-          {pokemons.map(({ id, name, stats, types, img }) => (
+          {data.pokemons.map(({ id, name, stats, types, img }) => (
             <li className={s.cardListItem} key={id}>
               <PokemonCard id={id} name={name} stats={stats} types={types} img={img} />
             </li>
