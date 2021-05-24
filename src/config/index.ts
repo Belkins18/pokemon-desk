@@ -7,7 +7,7 @@ const config = {
     endpoint: {
       getPokemons: {
         method: 'GET',
-        url: {
+        uri: {
           pathname: '/api/v1/pokemons',
         },
       },

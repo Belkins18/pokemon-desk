@@ -8,8 +8,6 @@ import { ReactComponent as PokemonLogoSvg } from './assets/Logo.svg';
 import s from './Header.module.scss';
 
 const Header = () => {
-  console.log('####  Header');
-
   const path = usePath();
 
   return (

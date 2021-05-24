@@ -4,8 +4,7 @@ import s from './Pokedex.module.scss';
 // eslint-disable-next-line import/no-unresolved
 import PokemonCard from '../../components/PokemonCard';
 import { IPokemons } from '../../api/pokemons';
-
-import config from '../../config';
+import req from '../../utils/request';
 
 interface IData {
   count: number;
@@ -22,15 +21,13 @@ const usePokemons = (): { isLoading: boolean; isError: boolean; data: IData } =>
 
   useEffect(() => {
     setIsLoading(true);
-
+    // req().then(data => console.log('#### data: ', data))
     const getPokemons = async () => {
       setIsLoading(true);
-      const url = `${config.client.server.protocol}://${config.client.server.host}${config.client.endpoint.getPokemons.url.pathname}`;
 
       try {
-        const responce = await fetch(url);
-        const result = await responce.json();
-
+        const result = await req('getPokemons');
+        console.log(result);
         setData(result);
       } catch (error) {
         setIsError(true);
@@ -42,11 +39,6 @@ const usePokemons = (): { isLoading: boolean; isError: boolean; data: IData } =>
     getPokemons();
   }, []);
 
-  console.log('#### data: ', {
-    data,
-    isLoading,
-    isError,
-  });
   return {
     // @ts-ignore
     data,
