@@ -1,5 +1,41 @@
-// eslint-disable-next-line import/prefer-default-export
-export const POKEMONS = [
+/* eslint-disable camelcase */
+export interface IPokemons {
+  name_clean?: string;
+  abilities?: string[];
+  stats: {
+    hp: number;
+    attack: number;
+    defense: number;
+    'special-attack': number;
+    'special-defense': number;
+    speed: number;
+  };
+  types: string[];
+  img: string;
+  name: string;
+  base_experience?: number;
+  height?: number;
+  id: number;
+  is_default?: boolean;
+  order?: number;
+  weight?: number;
+}
+// interface IPokemonCard {
+//   id: number;
+//   name: string;
+//   stats: {
+//     hp: number;
+//     attack: number;
+//     defense: number;
+//     'special-attack': number;
+//     'special-defense': number;
+//     speed: number;
+//   };
+//   types: string[];
+//   img: string;
+// }
+
+export const POKEMONS: Array<IPokemons> = [
   {
     name_clean: 'bulbasaur',
     abilities: ['overgrow', 'chlorophyll'],
