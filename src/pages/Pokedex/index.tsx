@@ -1,54 +1,12 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import s from './Pokedex.module.scss';
 // eslint-disable-next-line import/no-unresolved
 import PokemonCard from '../../components/PokemonCard';
-import { IPokemons } from '../../api/pokemons';
-import req from '../../utils/request';
-
-interface IData {
-  count: number;
-  limit: number;
-  offset: number;
-  pokemons: IPokemons[];
-  total: number;
-}
-
-const usePokemons = (): { isLoading: boolean; isError: boolean; data: IData } => {
-  const [data, setData] = useState<IData>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    // req().then(data => console.log('#### data: ', data))
-    const getPokemons = async () => {
-      setIsLoading(true);
-
-      try {
-        const result = await req('getPokemons');
-        console.log(result);
-        setData(result);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getPokemons();
-  }, []);
-
-  return {
-    // @ts-ignore
-    data,
-    isLoading,
-    isError,
-  };
-};
+import useData from '../../hook/getData';
 
 const Pokedex = () => {
-  const { data, isLoading, isError } = usePokemons();
+  const { data, isLoading, isError } = useData('getPokemons');
 
   if (isLoading) {
     return <div>Loading ...</div>;
