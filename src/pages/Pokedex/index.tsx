@@ -1,16 +1,39 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { useState } from 'react';
 import s from './Pokedex.module.scss';
 // eslint-disable-next-line import/no-unresolved
 import PokemonCard from '../../components/PokemonCard';
 import useData from '../../hook/getData';
+import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
+
+interface iQuery {
+  name?: string;
+}
 
 const Pokedex = () => {
-  const { data, isLoading, isError } = useData('getPokemons');
+  // useState
+  const [searchValue, setSearchValue] = useState('');
+  const [query, setQuery] = useState<iQuery>({});
+  //
+  // const query = useMemo(() => ({
+  //   name: searchValue
+  // }), [searchValue]);
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+  // custom hook
+  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [searchValue]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('#### e: ', e.target.value);
+    setSearchValue(e.target.value);
+    setQuery((state) => ({
+      ...state,
+      name: e.target.value,
+    }));
+  };
+  // TODO! show loader
+  // if (isLoading) {
+  //   return <div>Loading ...</div>;
+  // }
 
   if (isError) {
     return <div>Something Wrang!!!</div>;
@@ -20,14 +43,25 @@ const Pokedex = () => {
     <div>
       <div className={s.wrap}>
         <div className={s.title}>
-          {data.total} <b>Pokemons</b> for you to choose your favorite
+          {!isLoading && data && data.total} <b>Pokemons</b> for you to choose your favorite
+        </div>
+        <div>
+          <input type="text" value={searchValue} onChange={handleSearchChange} />
         </div>
         <ul className={s.cardList}>
-          {data.pokemons.map(({ id, name, stats, types, img }) => (
-            <li className={s.cardListItem} key={id}>
-              <PokemonCard id={id} name={name} stats={stats} types={types} img={img} />
-            </li>
-          ))}
+          {!isLoading &&
+            data &&
+            data.pokemons.map((pokemon: PokemonsRequest) => (
+              <li className={s.cardListItem} key={pokemon.id}>
+                <PokemonCard
+                  id={pokemon.id}
+                  name={pokemon.name}
+                  stats={pokemon.stats}
+                  types={pokemon.types}
+                  img={pokemon.img}
+                />
+              </li>
+            ))}
         </ul>
       </div>
     </div>

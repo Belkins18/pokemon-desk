@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import req from '../utils/request';
 
-const useData = (endpoint: string) => {
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+const useData = <T>(endpoint: string, query: object, deps: any[] = []) => {
+  const [data, setData] = useState<T | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
     setIsLoading(true);
 
-    const getData = async () => {
+    const getData = async (): Promise<void> => {
       setIsLoading(true);
 
       try {
-        const result = await req(endpoint);
+        const result = await req<T>(endpoint, query);
         // eslint-disable-next-line no-console
         console.log(result);
         setData(result);
@@ -25,7 +25,7 @@ const useData = (endpoint: string) => {
     };
 
     getData();
-  }, [endpoint]);
+  }, deps);
 
   return {
     data,
