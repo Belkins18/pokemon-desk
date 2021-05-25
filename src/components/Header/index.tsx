@@ -9,7 +9,6 @@ import s from './Header.module.scss';
 
 const Header = () => {
   const path = usePath();
-  console.log('#### path: ', path);
 
   return (
     <div className={s.root}>
@@ -36,4 +35,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default React.memo(Header);
