@@ -5,25 +5,30 @@ import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
 import useData from '../../hook/getData';
 import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
+import useDebounce from '../../hook/useDebounce';
 
 interface iQuery {
   name?: string;
+  limit?: number;
+  offset?: number;
 }
 
 const Pokedex = () => {
   // useState
   const [searchValue, setSearchValue] = useState('');
-  const [query, setQuery] = useState<iQuery>({});
-  //
+  const [query, setQuery] = useState<iQuery>({
+    limit: 12,
+    offset: 2,
+  });
   // const query = useMemo(() => ({
   //   name: searchValue
   // }), [searchValue]);
+  const debouncedValue = useDebounce(searchValue, 500);
 
   // custom hook
-  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [searchValue]);
+  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [debouncedValue]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('#### e: ', e.target.value);
     setSearchValue(e.target.value);
     setQuery((state) => ({
       ...state,
