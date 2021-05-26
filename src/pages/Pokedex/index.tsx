@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import s from './Pokedex.module.scss';
-// eslint-disable-next-line import/no-unresolved
 import PokemonCard from '../../components/PokemonCard';
 import useData from '../../hook/getData';
 import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
@@ -51,7 +50,7 @@ const Pokedex = () => {
           {!isLoading && data && data.total} <b>Pokemons</b> for you to choose your favorite
         </div>
         <div>
-          <input type="text" value={searchValue} onChange={handleSearchChange} />
+          <input className={s.search} type="text" value={searchValue} onChange={handleSearchChange} />
         </div>
         <ul className={s.cardList}>
           {!isLoading &&
