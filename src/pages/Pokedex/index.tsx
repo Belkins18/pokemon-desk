@@ -1,58 +1,40 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import s from './Pokedex.module.scss';
-// eslint-disable-next-line import/no-unresolved
 import PokemonCard from '../../components/PokemonCard';
-import { IPokemons } from '../../api/pokemons';
-import req from '../../utils/request';
+import useData from '../../hook/getData';
+import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
+import useDebounce from '../../hook/useDebounce';
+import Loader from '../../components/Loader';
 
-interface IData {
-  count: number;
-  limit: number;
-  offset: number;
-  pokemons: IPokemons[];
-  total: number;
+interface iQuery {
+  name?: string;
+  limit?: number;
+  offset?: number;
 }
 
-const usePokemons = (): { isLoading: boolean; isError: boolean; data: IData } => {
-  const [data, setData] = useState<IData>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    // req().then(data => console.log('#### data: ', data))
-    const getPokemons = async () => {
-      setIsLoading(true);
-
-      try {
-        const result = await req('getPokemons');
-        console.log(result);
-        setData(result);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getPokemons();
-  }, []);
-
-  return {
-    // @ts-ignore
-    data,
-    isLoading,
-    isError,
-  };
-};
-
 const Pokedex = () => {
-  const { data, isLoading, isError } = usePokemons();
+  // useState
+  const [searchValue, setSearchValue] = useState('');
+  const [query, setQuery] = useState<iQuery>({
+    limit: 12,
+    offset: 2,
+  });
+  // const query = useMemo(() => ({
+  //   name: searchValue
+  // }), [searchValue]);
+  const debouncedValue = useDebounce(searchValue, 500);
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+  // custom hook
+  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [debouncedValue]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+    setQuery((state) => ({
+      ...state,
+      name: e.target.value,
+    }));
+  };
 
   if (isError) {
     return <div>Something Wrang!!!</div>;
@@ -62,14 +44,34 @@ const Pokedex = () => {
     <div>
       <div className={s.wrap}>
         <div className={s.title}>
-          {data.total} <b>Pokemons</b> for you to choose your favorite
+          {!isLoading && data && data.total} <b>Pokemons</b> for you to choose your favorite
+        </div>
+        <div className={s.searchContainer}>
+          <input
+            className={s.search}
+            placeholder="Choose pokemon"
+            type="text"
+            value={searchValue}
+            onChange={handleSearchChange}
+          />
         </div>
         <ul className={s.cardList}>
-          {data.pokemons.map(({ id, name, stats, types, img }) => (
-            <li className={s.cardListItem} key={id}>
-              <PokemonCard id={id} name={name} stats={stats} types={types} img={img} />
-            </li>
-          ))}
+          {isLoading ? (
+            <Loader />
+          ) : (
+            data &&
+            data.pokemons.map((pokemon: PokemonsRequest) => (
+              <li className={s.cardListItem} key={pokemon.id}>
+                <PokemonCard
+                  id={pokemon.id}
+                  name={pokemon.name}
+                  stats={pokemon.stats}
+                  types={pokemon.types}
+                  img={pokemon.img}
+                />
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </div>

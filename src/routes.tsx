@@ -2,11 +2,13 @@ import React from 'react';
 import HomePage from './pages/Home';
 import EmptyPage from './pages/Empty';
 import Pokédex from './pages/Pokedex';
+// eslint-disable-next-line import/no-unresolved
+import Pokemon, { PokemonProps } from './pages/Pokemon';
 
 interface IGeneralMenu {
   title: string;
   link: LinkTo;
-  component: () => JSX.Element;
+  component: (props: React.PropsWithChildren<any>) => JSX.Element;
 }
 // eslint-disable-next-line no-shadow
 export enum LinkTo {
@@ -14,6 +16,7 @@ export enum LinkTo {
   POKEDEX = '/pokedex',
   LEGENDARES = '/legendaries',
   DOCUMENTATION = '/documentation',
+  POKEMON = '/pokedex/:id',
 }
 
 export const GENERAL_MENU: IGeneralMenu[] = [
@@ -39,11 +42,19 @@ export const GENERAL_MENU: IGeneralMenu[] = [
   },
 ];
 
+const SECOND_ROUTES: IGeneralMenu[] = [
+  {
+    title: 'Pokemon',
+    link: LinkTo.POKEMON,
+    component: ({ id }: PokemonProps) => <Pokemon id={id} />,
+  },
+];
+
 interface IAccMenu {
-  [n: string]: () => JSX.Element;
+  [n: string]: (props: React.PropsWithChildren<any>) => JSX.Element;
 }
 
-const routes = GENERAL_MENU.reduce((acc: IAccMenu, item: IGeneralMenu) => {
+const routes = [...GENERAL_MENU, ...SECOND_ROUTES].reduce((acc: IAccMenu, item: IGeneralMenu) => {
   acc[item.link] = item.component;
   return acc;
 }, {});
