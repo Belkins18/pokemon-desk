@@ -5,6 +5,7 @@ import PokemonCard from '../../components/PokemonCard';
 import useData from '../../hook/getData';
 import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
 import useDebounce from '../../hook/useDebounce';
+import Loader from '../../components/Loader';
 
 interface iQuery {
   name?: string;
@@ -34,10 +35,6 @@ const Pokedex = () => {
       name: e.target.value,
     }));
   };
-  // TODO! show loader
-  // if (isLoading) {
-  //   return <div>Loading ...</div>;
-  // }
 
   if (isError) {
     return <div>Something Wrang!!!</div>;
@@ -49,11 +46,19 @@ const Pokedex = () => {
         <div className={s.title}>
           {!isLoading && data && data.total} <b>Pokemons</b> for you to choose your favorite
         </div>
-        <div>
-          <input className={s.search} type="text" value={searchValue} onChange={handleSearchChange} />
+        <div className={s.searchContainer}>
+          <input
+            className={s.search}
+            placeholder="Choose pokemon"
+            type="text"
+            value={searchValue}
+            onChange={handleSearchChange}
+          />
         </div>
         <ul className={s.cardList}>
-          {!isLoading &&
+          {isLoading ? (
+            <Loader />
+          ) : (
             data &&
             data.pokemons.map((pokemon: PokemonsRequest) => (
               <li className={s.cardListItem} key={pokemon.id}>
@@ -65,7 +70,8 @@ const Pokedex = () => {
                   img={pokemon.img}
                 />
               </li>
-            ))}
+            ))
+          )}
         </ul>
       </div>
     </div>

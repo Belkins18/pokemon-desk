@@ -6,7 +6,7 @@ export interface IPokemons {
   total: number;
 }
 
-const pokenonsData = {
+export const pokenonsData = {
   name_clean: 'bulbasaur',
   abilities: ['overgrow', 'chlorophyll'],
   stats: {

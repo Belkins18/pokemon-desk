@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 // Components
 import Heading from '../Heading';
-// @ts-ignore
+
 import s from './PokemonCard.module.scss';
 
 const normalizeName = (name: string) => {
