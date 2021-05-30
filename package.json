@@ -41,6 +41,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "4.5.0",
     "husky": "4.3.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.3",
     "lint-staged": "10.5.1",
     "node-sass": "4.12.0",
