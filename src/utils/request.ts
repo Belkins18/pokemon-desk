@@ -1,14 +1,35 @@
 import Url from 'url';
+
 import getUrlWithParamsConfig from './getUrlWithParamsConfig';
+import config from '../config/index';
 
-async function req<T>(endpoint: string, query: object): Promise<T> {
-  const uri = Url.format(getUrlWithParamsConfig(endpoint, query));
+type TEndpoint = keyof typeof config.client.endpoint;
 
-  // eslint-disable-next-line no-console
-  console.log(uri);
+interface IOprions {
+  method: string;
+  body?: string;
+}
 
-  const reqData = await fetch(uri).then((responce) => responce.json());
-  return reqData;
+interface IGetUrlWithParamsConfig {
+  method: string;
+  uri: Partial<URL>;
+  body: object;
+}
+
+async function req<T>(endpoint: TEndpoint, query: object): Promise<T> {
+  const { method, uri, body }: IGetUrlWithParamsConfig = getUrlWithParamsConfig(endpoint, query);
+
+  const options: IOprions = {
+    method,
+  };
+
+  if (Object.keys(body).length > 0) {
+    options.body = JSON.stringify(body);
+  }
+
+  const result = await fetch(Url.format(uri), options).then((response) => response.json());
+
+  return result;
 }
 
 export default req;

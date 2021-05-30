@@ -3,6 +3,7 @@
 interface CssExports {
   cardList: string;
   cardListItem: string;
+  pokemonLink: string;
   search: string;
   searchContainer: string;
   title: string;
