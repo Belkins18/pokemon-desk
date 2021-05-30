@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 
+import toCapitalizeFirstLetter from '../../utils/toCapitalizeFirstLetter';
 import { PokemonsRequest } from '../../interface/pokemons';
 import Loader from '../../components/Loader';
 import Heading from '../../components/Heading';
@@ -46,7 +47,7 @@ const Pokemon: React.FC<PokemonProps> = ({ id }) => {
           <div className={s.pokemonStats}>
             <div className={s.pokemonInfo}>
               <Heading className={s.pokemonName} type="h3">
-                {`${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}`}
+                {toCapitalizeFirstLetter(pokemon.name)}
               </Heading>
               <div className={s.pokemonGenAndCircle}>
                 <Heading className={s.pokemonGeneration} type="h4">
