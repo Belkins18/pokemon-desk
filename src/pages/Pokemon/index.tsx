@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import cn from 'classnames';
 
-import { PokemonsRequest, pokenonsData } from '../../interface/pokemons';
+import { PokemonsRequest } from '../../interface/pokemons';
 import Loader from '../../components/Loader';
 import Heading from '../../components/Heading';
+import useData from '../../hook/getData';
 
 import s from './Pokemon.module.scss';
 
@@ -12,11 +13,16 @@ export interface PokemonProps {
 }
 
 const Pokemon: React.FC<PokemonProps> = ({ id }) => {
+  const { data, isLoading } = useData<PokemonsRequest>('getPokemon', { id });
   const [pokemon, setPokemon] = useState<PokemonsRequest | null>(null);
 
   useEffect(() => {
-    setPokemon(pokenonsData);
-  }, [id]);
+    setPokemon(data);
+  }, [data]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={s.root}>

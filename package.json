@@ -4,7 +4,8 @@
   "scripts": {
     "build:dev": "env NODE_ENV=development webpack --config webpack.config.js",
     "build:prod": "env NODE_ENV=production webpack --config webpack.config.js",
-    "start": "env NODE_ENV=development webpack-dev-server"
+    "start": "env NODE_ENV=development webpack-dev-server",
+    "test": "npx jest --watch"
   },
   "repository": "git@github.com:Belkins18/pokemon-desk.git",
   "author": "Belkins18 <nikolay.belibov@gmail.com>",
