@@ -16,7 +16,7 @@ export enum LinkTo {
   POKEDEX = '/pokedex',
   LEGENDARES = '/legendaries',
   DOCUMENTATION = '/documentation',
-  POKEMON = '/pokedex/:id',
+  POKEMON = '/pokemon/:id',
 }
 
 export const GENERAL_MENU: IGeneralMenu[] = [

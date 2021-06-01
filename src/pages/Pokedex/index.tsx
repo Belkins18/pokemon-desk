@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
+import { A } from 'hookrouter';
 import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
 import useData from '../../hook/getData';
@@ -62,13 +63,15 @@ const Pokedex = () => {
             data &&
             data.pokemons.map((pokemon: PokemonsRequest) => (
               <li className={s.cardListItem} key={pokemon.id}>
-                <PokemonCard
-                  id={pokemon.id}
-                  name={pokemon.name}
-                  stats={pokemon.stats}
-                  types={pokemon.types}
-                  img={pokemon.img}
-                />
+                <A className={s.pokemonLink} key={pokemon.id} href={`/pokemon/${pokemon.id}`}>
+                  <PokemonCard
+                    id={pokemon.id}
+                    name={pokemon.name}
+                    stats={pokemon.stats}
+                    types={pokemon.types}
+                    img={pokemon.img}
+                  />
+                </A>
               </li>
             ))
           )}

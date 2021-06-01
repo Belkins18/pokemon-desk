@@ -5,10 +5,7 @@ import Heading from '../Heading';
 
 import s from './PokemonCard.module.scss';
 
-const normalizeName = (name: string) => {
-  const req = /(\w)/;
-  return name.replace(req, name[0].toUpperCase());
-};
+import toCapitalizeFirstLetter from '../../utils/toCapitalizeFirstLetter';
 
 interface IPokemonCard {
   id: number;
@@ -29,7 +26,7 @@ const PokemonCard: React.FC<IPokemonCard> = ({ id, name, stats, types, img }) =>
     <div className={s.root} id={id.toString()}>
       <div className={s.infoWrap}>
         <Heading type="h4" className={s.titleName}>
-          {normalizeName(name)}
+          {toCapitalizeFirstLetter(name)}
         </Heading>
         <div className={s.statWrap}>
           <div className={s.statItem}>
