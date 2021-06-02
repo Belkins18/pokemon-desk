@@ -2,22 +2,15 @@ const { resolve } = require('path');
 const nodeExternals = require('webpack-node-externals');
 const NODE_ENV = process.env.NODE_ENV;
 
-const path = {
-  src: resolve(__dirname, 'src'),
-  dist: resolve(__dirname, 'dist'),
-  entry: resolve(__dirname, 'src/server/server.js'),
-  public: resolve(__dirname, 'public/index.html'),
-};
-
 module.exports = {
   target: 'node',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
   mode: NODE_ENV ? NODE_ENV : 'development',
-  entry: path.entry,
+  entry: resolve(__dirname, 'src/server/server.js'),
   output: {
-    path: path.dist,
+    path: resolve(__dirname, 'dist'),
     filename: 'server.js',
   },
   externals: [nodeExternals()],

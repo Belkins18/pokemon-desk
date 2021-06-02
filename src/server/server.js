@@ -1,6 +1,9 @@
-'use strict';
+import Hapi from '@hapi/hapi';
+import React from 'react';
+import ReactDom from 'react-dom/server';
+import { setPath } from 'hookrouter';
 
-const Hapi = require('@hapi/hapi');
+import App from '../App';
 
 const init = async () => {
   const server = Hapi.server({
@@ -13,8 +16,9 @@ const init = async () => {
     path: '/{any*}',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     handler: (request, h) => {
-      return `
-            this is a page: ${request.path}`;
+      setPath(request.path);
+      const result = ReactDom.renderToString(<App />);
+      return result;
     },
   });
 

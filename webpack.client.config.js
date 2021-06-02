@@ -8,9 +8,10 @@ const path = {
   dist: resolve(__dirname, 'dist'),
   entry: resolve(__dirname, 'src/index.ts'),
   public: resolve(__dirname, 'public/index.html'),
+  server: resolve(__dirname, 'src/server/server.js'),
 };
 
-console.log('server.js path: ', resolve(__dirname, 'src/server/server.js'));
+console.log('server.js path: ', path.server);
 
 module.exports = {
   resolve: {
@@ -30,7 +31,7 @@ module.exports = {
     rules: [
       {
         test: /\.[tj]sx?$/,
-        exclude: [/node_modules/, resolve(__dirname, 'src/server/server.js')],
+        exclude: [/node_modules/, path.server],
         use: ['ts-loader'],
       },
       {
