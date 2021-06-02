@@ -21,7 +21,7 @@ module.exports = {
   entry: path.entry,
   output: {
     path: path.dist,
-    filename: 'main-[hash].js',
+    filename: 'main.js',
   },
   watchOptions: {
     ignored: /node_modules/,
