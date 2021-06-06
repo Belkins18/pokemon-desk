@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { A } from 'hookrouter';
 import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
@@ -9,7 +9,7 @@ import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
 import useDebounce from '../../hook/useDebounce';
 import Loader from '../../components/Loader';
 import { ConfigEndpointEnum } from '../../config';
-import { getTypesAction } from '../../store/pokemons';
+import { getPokemonsTypes, getPokemonsTypesLoading, getTypesAction } from '../../store/pokemons';
 
 interface iQuery {
   name?: string;
@@ -19,6 +19,8 @@ interface iQuery {
 
 const Pokedex = () => {
   const dispatch = useDispatch();
+  const types = useSelector(getPokemonsTypes);
+  const isTypesLoading = useSelector(getPokemonsTypesLoading);
   // useState
   const [searchValue, setSearchValue] = useState('');
   const [query, setQuery] = useState<iQuery>({
@@ -64,6 +66,8 @@ const Pokedex = () => {
             onChange={handleSearchChange}
           />
         </div>
+        <div>{isTypesLoading ? <Loader /> : types?.map((item) => <div>{item}</div>)}</div>
+
         <ul className={s.cardList}>
           {isLoading ? (
             <Loader />
