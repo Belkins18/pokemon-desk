@@ -1,3 +1,22 @@
+import { Dispatch } from 'redux';
+import req from '../utils/request';
+import { ConfigEndpointEnum } from '../config';
+import { ITypesRequest } from '../interface/pokemons';
+
+// eslint-disable-next-line no-shadow
+export enum PokemonsActionTypes {
+  FETCH_TYPES = 'FETCH_TYPES',
+  FETCH_TYPES_RESOLVE = 'FETCH_TYPES_RESOLVE',
+  FETCH_TYPES_REJECT = 'FETCH_TYPES_REJECT',
+}
+
+interface TypesAction {
+  type: PokemonsActionTypes;
+  payload?: Array<string>;
+}
+
+type ActionTypes = TypesAction;
+
 const initialState = {
   types: {
     isLoading: false,
@@ -6,11 +25,11 @@ const initialState = {
   },
 };
 
-const pokemons = (state = initialState, action: any) => {
+const pokemons = (state = initialState, action: ActionTypes) => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'FETCH_TYPES':
+    case PokemonsActionTypes.FETCH_TYPES:
       return {
         ...state,
         types: {
@@ -19,7 +38,7 @@ const pokemons = (state = initialState, action: any) => {
           error: null,
         },
       };
-    case 'FETCH_TYPES_RESOLVE':
+    case PokemonsActionTypes.FETCH_TYPES_RESOLVE:
       return {
         ...state,
         types: {
@@ -28,7 +47,7 @@ const pokemons = (state = initialState, action: any) => {
           error: null,
         },
       };
-    case 'FETCH_TYPES_REJECT':
+    case PokemonsActionTypes.FETCH_TYPES_REJECT:
       return {
         ...state,
         types: {
@@ -40,6 +59,26 @@ const pokemons = (state = initialState, action: any) => {
     default:
       return state;
   }
+};
+
+export const getTypesAction = () => {
+  return async (dispatch: Dispatch<ActionTypes>) => {
+    dispatch({ type: PokemonsActionTypes.FETCH_TYPES });
+    try {
+      const response = await req<ITypesRequest>(ConfigEndpointEnum.getPokemonTypes, {});
+      console.log('### responce: ', response);
+
+      dispatch({
+        type: PokemonsActionTypes.FETCH_TYPES_RESOLVE,
+        payload: response,
+      });
+    } catch (error) {
+      dispatch({
+        type: PokemonsActionTypes.FETCH_TYPES_REJECT,
+        payload: error,
+      });
+    }
+  };
 };
 
 export default pokemons;

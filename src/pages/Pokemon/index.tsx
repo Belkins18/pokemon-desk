@@ -8,13 +8,14 @@ import Heading from '../../components/Heading';
 import useData from '../../hook/getData';
 
 import s from './Pokemon.module.scss';
+import { ConfigEndpointEnum } from '../../config';
 
 export interface PokemonProps {
   id: string | number;
 }
 
 const Pokemon: React.FC<PokemonProps> = ({ id }) => {
-  const { data, isLoading } = useData<PokemonsRequest>('getPokemon', { id });
+  const { data, isLoading } = useData<PokemonsRequest>(ConfigEndpointEnum.getPokemon, { id });
   const [pokemon, setPokemon] = useState<PokemonsRequest | null>(null);
 
   useEffect(() => {

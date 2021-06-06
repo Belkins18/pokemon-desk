@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { A } from 'hookrouter';
 import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
@@ -7,6 +8,8 @@ import useData from '../../hook/getData';
 import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
 import useDebounce from '../../hook/useDebounce';
 import Loader from '../../components/Loader';
+import { ConfigEndpointEnum } from '../../config';
+import { getTypesAction } from '../../store/pokemons';
 
 interface iQuery {
   name?: string;
@@ -15,6 +18,7 @@ interface iQuery {
 }
 
 const Pokedex = () => {
+  const dispatch = useDispatch();
   // useState
   const [searchValue, setSearchValue] = useState('');
   const [query, setQuery] = useState<iQuery>({
@@ -27,7 +31,11 @@ const Pokedex = () => {
   const debouncedValue = useDebounce(searchValue, 500);
 
   // custom hook
-  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [debouncedValue]);
+  const { data, isLoading, isError } = useData<IPokemons>(ConfigEndpointEnum.getPokemons, query, [debouncedValue]);
+
+  useEffect(() => {
+    dispatch(getTypesAction());
+  }, []);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);

@@ -1,6 +1,4 @@
-import config from '../config/index';
-
-type TEndpoint = keyof typeof config.client.endpoint;
+import config, { ConfigEndpointType } from '../config';
 
 interface IApiConfigUri {
   host: string;
@@ -17,7 +15,7 @@ interface IEndpoint {
   };
 }
 
-const getUrlWithParamsConfig = (endpointConfig: TEndpoint, params: any) => {
+const getUrlWithParamsConfig = (endpointConfig: ConfigEndpointType, params: any) => {
   // const { method, uri } = config.client.endpoint[endpointConfig as keyof config.client.emdpoint];
   const { method, uri }: IEndpoint = config.client.endpoint[endpointConfig];
 

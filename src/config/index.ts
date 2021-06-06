@@ -17,7 +17,7 @@ const config = {
           pathname: '/api/v1/pokemon/{id}',
         },
       },
-      getAllPokemonTypes: {
+      getPokemonTypes: {
         method: 'GET',
         uri: {
           pathname: '/api/v1/types',
@@ -46,5 +46,22 @@ const config = {
     },
   },
 };
+
+// eslint-disable-next-line no-shadow
+export enum ConfigEndpointEnum {
+  getPokemons = 'getPokemons',
+  getPokemon = 'getPokemon',
+  getPokemonTypes = 'getPokemonTypes',
+  createPokemon = 'createPokemon',
+  updatePokemon = 'updatePokemon',
+  deletePokemon = 'deletePokemon',
+}
+export type ConfigEndpointType =
+  | ConfigEndpointEnum.getPokemons
+  | ConfigEndpointEnum.getPokemon
+  | ConfigEndpointEnum.getPokemonTypes
+  | ConfigEndpointEnum.createPokemon
+  | ConfigEndpointEnum.updatePokemon
+  | ConfigEndpointEnum.deletePokemon;
 
 export default config;

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import req from '../utils/request';
-import config from '../config/index';
-
-type TEndpoint = keyof typeof config.client.endpoint;
+import { ConfigEndpointType } from '../config';
 
 type TData<T> = {
   isLoading: boolean;
@@ -10,7 +8,7 @@ type TData<T> = {
   data: T | null;
 };
 
-const useData = <T>(endpoint: TEndpoint, query: object, deps: Array<any> = []): TData<T> => {
+const useData = <T>(endpoint: ConfigEndpointType, query: object, deps: Array<any> = []): TData<T> => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
