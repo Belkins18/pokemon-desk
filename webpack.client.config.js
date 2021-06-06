@@ -6,7 +6,7 @@ const NODE_ENV = process.env.NODE_ENV;
 const path = {
   src: resolve(__dirname, 'src'),
   dist: resolve(__dirname, 'dist'),
-  entry: resolve(__dirname, 'src/index.ts'),
+  entry: resolve(__dirname, 'src/index.tsx'),
   public: resolve(__dirname, 'public/index.html'),
   server: resolve(__dirname, 'src/server/server.js'),
 };

@@ -17,6 +17,13 @@ const config = {
           pathname: '/api/v1/pokemon/{id}',
         },
       },
+      getAllPokemonTypes: {
+        method: 'GET',
+        uri: {
+          pathname: '/api/v1/types',
+        },
+      },
+
       // FAKE API
       createPokemon: {
         method: 'POST',
