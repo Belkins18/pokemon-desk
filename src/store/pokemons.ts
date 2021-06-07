@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import req from '../utils/request';
-import { ConfigEndpointEnum, ConfigEndpointType } from '../config';
+import { ConfigEndpointEnum } from '../config';
 import { IPokemons, ITypesRequest } from '../interface/pokemons';
 import { IStateRequest } from '../interface';
 import { IInitialState } from './index';
@@ -11,34 +11,22 @@ export enum PokemonsActionTypes {
   FETCH_TYPES_RESOLVE = 'FETCH_TYPES_RESOLVE',
   FETCH_TYPES_REJECT = 'FETCH_TYPES_REJECT',
 
-  FETCH_POKEMONS = 'FETCH_POKEMONS',
-  FETCH_POKEMONS_RESOLVE = 'FETCH_POKEMONS_RESOLVE',
-  FETCH_POKEMONS_REJECT = 'FETCH_POKEMONS_REJECT',
-  FETCH_POKEMONS_FINISH = 'FETCH_POKEMONS_FINISH',
+  SET_POKEMONS = 'SET_POKEMONS',
 }
 
 interface TypesAction {
   type: PokemonsActionTypes;
   payload?: Array<string>;
 }
-interface PokemonAction<T> {
-  type: PokemonsActionTypes;
-  payload?: {
-    isLoading?: boolean;
-    data?: T | null;
-    error?: any;
-  };
-}
 
 type ActionTypes = TypesAction;
-type ActionPokemonTypes<T> = PokemonAction<T>;
 
 export interface IPokemonsInitialState {
   types: IStateRequest<string>;
   pokemons: {
-    isLoading: boolean;
     data: null | IPokemons;
-    error?: any;
+    isLoading: boolean;
+    isError?: any;
   };
 }
 
@@ -46,12 +34,12 @@ const initialState: IPokemonsInitialState = {
   types: {
     isLoading: false,
     data: null,
-    error: null,
+    isError: null,
   },
   pokemons: {
     isLoading: false,
+    isError: null,
     data: null,
-    error: null,
   },
 };
 
@@ -66,7 +54,7 @@ const pokemons = (state = initialState, action: ActionTypes) => {
         types: {
           isLoading: true,
           data: null,
-          error: null,
+          isError: null,
         },
       };
     case PokemonsActionTypes.FETCH_TYPES_RESOLVE:
@@ -75,7 +63,7 @@ const pokemons = (state = initialState, action: ActionTypes) => {
         types: {
           isLoading: false,
           data: payload,
-          error: null,
+          isError: null,
         },
       };
     case PokemonsActionTypes.FETCH_TYPES_REJECT:
@@ -84,39 +72,14 @@ const pokemons = (state = initialState, action: ActionTypes) => {
         types: {
           isLoading: false,
           data: null,
-          error: payload,
+          isError: payload,
         },
       };
-    case PokemonsActionTypes.FETCH_POKEMONS:
+    case PokemonsActionTypes.SET_POKEMONS:
       return {
         ...state,
         pokemons: {
-          ...state.pokemons,
-          isLoading: true,
-        },
-      };
-    case PokemonsActionTypes.FETCH_POKEMONS_RESOLVE:
-      return {
-        ...state,
-        pokemons: {
-          ...state.pokemons,
-          data: payload,
-        },
-      };
-    case PokemonsActionTypes.FETCH_POKEMONS_REJECT:
-      return {
-        ...state,
-        pokemons: {
-          ...state.pokemons,
-          error: payload,
-        },
-      };
-    case PokemonsActionTypes.FETCH_POKEMONS_FINISH:
-      return {
-        ...state,
-        pokemons: {
-          ...state.pokemons,
-          isLoading: false,
+          ...payload,
         },
       };
     default:
@@ -150,27 +113,16 @@ export const getTypesAction = () => {
   };
 };
 
-export const getPokemonsAction = <T>(endpoint: ConfigEndpointType, query: object) => {
-  return async (dispatch: Dispatch<ActionPokemonTypes<T>>) => {
-    dispatch({ type: PokemonsActionTypes.FETCH_POKEMONS });
-    try {
-      const response = await req(endpoint, query);
-
-      dispatch({
-        type: PokemonsActionTypes.FETCH_POKEMONS_RESOLVE,
-        // @ts-ignore
-        payload: response,
-      });
-    } catch (error) {
-      dispatch({
-        type: PokemonsActionTypes.FETCH_POKEMONS_REJECT,
-        payload: error,
-      });
-    } finally {
-      dispatch({
-        type: PokemonsActionTypes.FETCH_POKEMONS_FINISH,
-      });
-    }
+export const getPokemonsAction = (data: IPokemons, isLoading: boolean, isError: boolean) => {
+  return (dispatch: any) => {
+    dispatch({
+      type: PokemonsActionTypes.SET_POKEMONS,
+      payload: {
+        data,
+        isLoading,
+        isError,
+      },
+    });
   };
 };
 

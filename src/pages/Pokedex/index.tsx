@@ -9,7 +9,13 @@ import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
 import useDebounce from '../../hook/useDebounce';
 import Loader from '../../components/Loader';
 import { ConfigEndpointEnum } from '../../config';
-import { getPokemonsTypes, getPokemonsTypesLoading, getTypesAction } from '../../store/pokemons';
+import {
+  getPokemonsAction,
+  getPokemonsState,
+  getPokemonsTypes,
+  getPokemonsTypesLoading,
+  getTypesAction,
+} from '../../store/pokemons';
 
 interface iQuery {
   name?: string;
@@ -21,7 +27,8 @@ const Pokedex = () => {
   const dispatch = useDispatch();
   const types = useSelector(getPokemonsTypes);
   const isTypesLoading = useSelector(getPokemonsTypesLoading);
-  // useState
+  const { data, isLoading, isError } = useSelector(getPokemonsState);
+  // useState1
   const [searchValue, setSearchValue] = useState('');
   const [query, setQuery] = useState<iQuery>({
     limit: 12,
@@ -33,11 +40,13 @@ const Pokedex = () => {
   const debouncedValue = useDebounce(searchValue, 500);
 
   // custom hook
-  const { data, isLoading, isError } = useData<IPokemons>(ConfigEndpointEnum.getPokemons, query, [debouncedValue]);
-
+  const request = useData<IPokemons>(ConfigEndpointEnum.getPokemons, query, [debouncedValue]);
   useEffect(() => {
     dispatch(getTypesAction());
-  }, []);
+    if (request.data) {
+      dispatch(getPokemonsAction(request.data, request.isLoading, request.isError));
+    }
+  }, [request.data, request.isLoading, request.isError]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
