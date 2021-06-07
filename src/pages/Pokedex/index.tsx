@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { A } from 'hookrouter';
 import s from './Pokedex.module.scss';
 import PokemonCard from '../../components/PokemonCard';
@@ -7,6 +8,14 @@ import useData from '../../hook/getData';
 import { IPokemons, PokemonsRequest } from '../../interface/pokemons';
 import useDebounce from '../../hook/useDebounce';
 import Loader from '../../components/Loader';
+import { ConfigEndpointEnum } from '../../config';
+import {
+  getPokemonsAction,
+  getPokemonsState,
+  getPokemonsTypes,
+  getPokemonsTypesLoading,
+  getTypesAction,
+} from '../../store/pokemons';
 
 interface iQuery {
   name?: string;
@@ -15,7 +24,11 @@ interface iQuery {
 }
 
 const Pokedex = () => {
-  // useState
+  const dispatch = useDispatch();
+  const types = useSelector(getPokemonsTypes);
+  const isTypesLoading = useSelector(getPokemonsTypesLoading);
+  const { data, isLoading, isError } = useSelector(getPokemonsState);
+  // useState1
   const [searchValue, setSearchValue] = useState('');
   const [query, setQuery] = useState<iQuery>({
     limit: 12,
@@ -27,7 +40,13 @@ const Pokedex = () => {
   const debouncedValue = useDebounce(searchValue, 500);
 
   // custom hook
-  const { data, isLoading, isError } = useData<IPokemons>('getPokemons', query, [debouncedValue]);
+  const request = useData<IPokemons>(ConfigEndpointEnum.getPokemons, query, [debouncedValue]);
+  useEffect(() => {
+    dispatch(getTypesAction());
+    if (request.data) {
+      dispatch(getPokemonsAction(request.data, request.isLoading, request.isError));
+    }
+  }, [request.data, request.isLoading, request.isError]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -56,6 +75,7 @@ const Pokedex = () => {
             onChange={handleSearchChange}
           />
         </div>
+        <div>{isTypesLoading ? <Loader /> : types?.map((item) => <div key={item}>{item}</div>)}</div>
         <ul className={s.cardList}>
           {isLoading ? (
             <Loader />

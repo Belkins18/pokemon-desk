@@ -1,9 +1,7 @@
 import Url from 'url';
 
 import getUrlWithParamsConfig from './getUrlWithParamsConfig';
-import config from '../config/index';
-
-type TEndpoint = keyof typeof config.client.endpoint;
+import { ConfigEndpointType } from '../config';
 
 interface IOprions {
   method: string;
@@ -16,7 +14,7 @@ interface IGetUrlWithParamsConfig {
   body: object;
 }
 
-async function req<T>(endpoint: TEndpoint, query: object): Promise<T> {
+async function req<T>(endpoint: ConfigEndpointType, query: object): Promise<T> {
   const { method, uri, body }: IGetUrlWithParamsConfig = getUrlWithParamsConfig(endpoint, query);
 
   const options: IOprions = {
